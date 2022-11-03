@@ -4,7 +4,7 @@ import s from './user.module.css';
 export const Users = () => {
     return (
         <div>
-            Profile
+            Users
         </div>
     );
 

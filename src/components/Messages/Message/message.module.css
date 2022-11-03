@@ -1,0 +1,34 @@
+.blockMessage {
+    display: flex;
+    margin-top: 50px;
+    margin-left: 50px;
+}
+
+.iconName {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: #6c757d;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.message {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 200px;
+    min-height: 40px;
+    max-height: 100%;
+    border: #6c757d 2px solid;
+    border-radius: 15px;
+    margin-left: 10px;
+    box-shadow: 0 .125rem .25rem rgba(0, 0, 0, 0.2);
+    font-size: 14px;
+    font-family: dm sans, sans-serif;
+    color: #6c757d;
+    text-align: center;
+
+
+}

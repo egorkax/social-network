@@ -10,7 +10,7 @@ import {UsersIcon} from "../../commons/icons/navIcons/Users";
 
 export const Navbar = () => {
 
-    const className = (navData: { isActive: boolean, isPending: boolean }) => (navData.isActive ? s.itemActive : s.item)
+    const className = (navData: { isActive: boolean, isPending: boolean }) => (navData.isActive ? `${s.item} ${s.active}` : s.item)
     return (
 
         <nav className={s.blockNav}>

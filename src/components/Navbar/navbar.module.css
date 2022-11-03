@@ -16,10 +16,15 @@
     font-family: dm sans, sans-serif;
     color: #6c757d;
     text-decoration: none;
-
-
 }
 
+.item.active {
+    background-color: white;
+    color: black;
+    font-weight: 600;
+    box-shadow: 0 .125rem .25rem rgba(0, 0, 0, 0.3);
+
+}
 .item:hover {
     background-color: white;
     cursor: pointer;
@@ -28,23 +33,7 @@
 
 }
 
-.itemActive {
-    display: flex;
-    align-items: center;
-    width: 200px;
-    height: 40px;
-    border-radius: 10px;
-    margin-top: 10px;
-    font-size: 14px;
-    font-family: dm sans, sans-serif;
-    text-decoration: none;
 
-    background-color: white;
-    color: black;
-    font-weight: 600;
-    box-shadow: 0 .125rem .25rem rgba(0, 0, 0, 0.3);
-
-}
 
 .icon {
     margin-left: 20px;

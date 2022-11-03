@@ -1,0 +1,37 @@
+.blockAddPost {
+    display: flex;
+    margin-top: 50px;
+    align-items: center;
+}
+
+.button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 10px;
+    width: 100px;
+    height: 40px;
+    border-radius: 14px;
+    color: #fff;
+    background-color: #0e6dfd;
+    border-color: #0e6dfd;
+    cursor: pointer;
+
+}
+
+.button:hover {
+    background-color: #0965ee;
+    border-color: #0965ee;
+
+}
+
+.inputText {
+    width: 300px;
+    height: 40px;
+    border-radius: 15px;
+    outline: none;
+    resize: none;
+    text-align: center;
+
+
+}

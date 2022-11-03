@@ -2,7 +2,7 @@
 .appWrapper {
     display: flex;
     flex-direction: column;
-    margin: 30px auto 0 auto;
+    margin: 15px auto 0 auto;
     max-width: 1000px;
     height: 100%;
 
@@ -12,16 +12,16 @@
 .content {
     display: flex;
     flex-direction: row;
-    margin-top: 30px;
+    margin-top: 10px;
 
 }
 
 .contentInfo {
     width: 750px;
+    min-height: 600px;
+    max-height: 100%;
     background-color: white;
     margin-left: 50px;
-    height: 500px;
-    max-height: 1000px;
     border-radius: 15px;
     box-shadow: 0 .125rem .25rem rgba(0, 0, 0, .4);
 }

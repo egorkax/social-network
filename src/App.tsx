@@ -21,7 +21,7 @@ export const App = (props: any) => {
                 <Navbar/>
                 <div className={'contentInfo'}>
                     <Routes>
-                        <Route path={'/profile'} element={<Profile posts={props.appState.profilePages} addPost={props.addPost}/>}/>
+                        <Route path={'/profile'} element={<Profile posts={props.appState.profilePages} addPost={props.addPost} updatePost={props.updatePost}/>}/>
                         <Route path={'/dialogs'} element={<Dialogs dialogs={props.appState.dialogPages}/>}/>
                         <Route path={'/users'} element={<Users/>}/>
                         <Route path={'/news'} element={<News/>}/>

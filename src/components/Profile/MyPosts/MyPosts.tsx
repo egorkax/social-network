@@ -1,32 +1,31 @@
-import React, {useRef} from 'react';
+import React, {ChangeEvent} from 'react';
 import {Post} from "./Post/Post";
 import {ButtonIcons} from "../../../commons/icons/Button";
 import s from './myPosts.module.css'
+import {MyPostsPropsType} from "./MyPostsContainer";
 
-export const MyPosts = (props: any) => {
-    console.log(props)
+export const MyPosts = (props: MyPostsPropsType) => {
 
-
-    let posts = props.posts.postData.map(
-        (e: { id: number; message: string; likes: number; }) => <Post id={e.id}
+    let posts = props.postData.map(
+        (e: { id: string; message: string; likes: number; }) => <Post key={e.id}
                                                                       message={e.message}
                                                                       likes={e.likes}/>
     )
 
-    let newPostText = props.posts.newPostText
-    let newPostEl = useRef<HTMLTextAreaElement>(null)
+    let newPostText = props.newPostText
 
 
-    const onChangeValueInput = () => {
-        let newText
-        if (newPostEl.current !== null) newText = newPostEl.current.value
-        props.updatePost(newText)
+    const onChangeValueInput = (e: ChangeEvent<HTMLTextAreaElement>) => {
+        props.updateNewPostText(e.currentTarget.value)
+    }
+    const onAddPost = () => {
+        props.addPost()
     }
     return (
         <div>
             <div className={s.blockAddPost}>
-                <textarea className={s.inputText} ref={newPostEl} value={newPostText} onChange={onChangeValueInput}/>
-                <button className={s.button} onClick={props.addPost}>
+                <textarea className={s.inputText} value={newPostText} onChange={onChangeValueInput}/>
+                <button className={s.button} onClick={onAddPost}>
                     <ButtonIcons/>
                     Post
                 </button>

@@ -1,55 +1,30 @@
-export let store = {
-    _state: {
-        profilePages: {
-            newPostText: '',
-            postData: [
-                {id: 1, message: 'Hi world', likes: 11},
-                {id: 2, message: 'What you lern?', likes: 22},
-                {id: 3, message: 'YO?', likes: 33},
-                {id: 4, message: '12345?', likes: 44}
-            ]
-        },
+import {applyMiddleware, combineReducers, legacy_createStore} from 'redux'
+import thunkMiddleware, {ThunkAction, ThunkDispatch} from 'redux-thunk'
+import {TypedUseSelectorHook, useDispatch, useSelector} from "react-redux";
+import {profileReducer} from "./profile-reduser";
+import {dialogReducer} from "./dialog-reduser";
+import {usersReducer} from "./users-reduser";
 
-        dialogPages: {
-            dialogsData: [
-                {id: 1, name: 'Egor'},
-                {id: 2, name: 'Polina'},
-                {id: 3, name: 'Anton'},
-                {id: 4, name: 'Andrey'},
-                {id: 5, name: 'Nadya'},
-                {id: 6, name: 'Maksim'},
-            ],
-            newMessageText: '',
-            messagesData: [
-                {id: 1, message: 'Hi.Bla Bla Bla Bla'},
-                {id: 2, message: 'How are you?Bla Bla Bla Bla'},
-                {id: 3, message: 'Why are you?Bla Bla Bla Bla'},
-                {id: 4, message: 'Im fine,thanks.Bla Bla Bla Bla'},
-                {id: 5, message: 'What do you mean?Bla Bla Bla Bla'},
-            ]
-        }
-    },
-    getState() {
-        return this._state
-    },
-    _callSubscriber() {
-    },
-    addPost() {
-        let newPost = {id: 6, message: this._state.profilePages.newPostText, likes: 0}
-        debugger
-        this._state.profilePages.postData.push(newPost);
-        this._state.profilePages.newPostText = '';
-        this._callSubscriber()
-    },
-    updateNewPostText(newPost: string) {
-        debugger
-        this._state.profilePages.newPostText = newPost;
-        this._callSubscriber()
-    },
-    subscribe(observer: any) {
-        this._callSubscriber = observer
-    }
-}
+
+const rootReducer = combineReducers({
+    profilePage: profileReducer,
+    dialogPage: dialogReducer,
+    usersPage: usersReducer,
+})
+export const store = legacy_createStore(rootReducer, applyMiddleware(thunkMiddleware));
+
+
+//types
+export type AppRootStateType = ReturnType<typeof rootReducer>
+export type AllActionsType = any
+export type DispatchType = ThunkDispatch<AppRootStateType, unknown, AllActionsType>
+//hooks
+export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, AppRootStateType, unknown, AllActionsType>
+//hooks
+export const useAppDispatch = () => useDispatch<DispatchType>()
+export const useAppSelector: TypedUseSelectorHook<AppRootStateType> = useSelector
+
 
 // @ts-ignore
-window.store = store
+window.store = store;
+

@@ -10,6 +10,7 @@ import {Setting} from "./components/Setting/Setting";
 import {Profile} from "./components/Profile/Profile";
 import {Dialogs} from "./components/Messages/Dialogs";
 import {Users} from "./components/Users/Users";
+import {DialogsContainer} from "./components/Messages/DialogsContainer";
 
 
 export const App = (props: any) => {
@@ -21,8 +22,8 @@ export const App = (props: any) => {
                 <Navbar/>
                 <div className={'contentInfo'}>
                     <Routes>
-                        <Route path={'/profile'} element={<Profile posts={props.appState.profilePages} addPost={props.addPost} updatePost={props.updatePost}/>}/>
-                        <Route path={'/dialogs'} element={<Dialogs dialogs={props.appState.dialogPages}/>}/>
+                        <Route path={'/profile'} element={<Profile/>}/>
+                        <Route path={'/dialogs'} element={<DialogsContainer/>}/>
                         <Route path={'/users'} element={<Users/>}/>
                         <Route path={'/news'} element={<News/>}/>
                         <Route path={'/music'} element={<Music/>}/>

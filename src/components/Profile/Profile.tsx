@@ -1,13 +1,13 @@
 import React from 'react';
 import s from './profile.module.css';
-import {MyPosts} from "./MyPosts/MyPosts";
 import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
+import {MyPostsContainer} from "./MyPosts/MyPostsContainer";
 
-export const Profile = (props:any) => {
+export const Profile = () => {
     return (
         <div className={s.blockProfile}>
             <ProfileInfo/>
-            <MyPosts posts={props.posts} addPost={props.addPost} updatePost={props.updatePost}/>
+            <MyPostsContainer/>
         </div>
     );
 

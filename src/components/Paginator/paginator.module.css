@@ -1,0 +1,11 @@
+.currentPage {
+    font-family: dm sans, sans-serif;
+    color: black;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.page {
+    font-family: dm sans, sans-serif;
+    color: #6c757d;;
+}

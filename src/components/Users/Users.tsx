@@ -1,26 +1,39 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import s from './users.module.css';
 import {User} from "./User/User";
-import {usersAPI} from "../../api/api";
-import {setUsersAC} from "../../redux/users-reduser";
-import {useAppDispatch, useAppSelector} from "../../redux/store";
+import {UserType} from "../../redux/users-reduser";
+import {Paginator} from "../Paginator/Paginator";
+import {Preloader} from "../Preloader/Preloader";
 
-export const Users = () => {
-    const dispatch = useAppDispatch()
-    const users = useAppSelector(state => state.usersPage.users)
+type UsersType = {
+    users: UserType[]
+    totalUsersCount: number
+    currentPage: number
+    pageSize: number
+    follow: (userId: number) => void
+    unFollow: (userId: number) => void
+    onPageChanged: (newPage: number) => void
+}
+
+export const Users = (props: UsersType) => {
 
 
-    useEffect(() => {
-        usersAPI.getUsers(1, 8)
-            .then((res) => {
-                dispatch(setUsersAC(res.data.items))
-            })
+    const usersMap = props.users.map(e => <User key={e.id} name={e.name} status={e.status} id={e.id}
+                                                ava={e.photos.small}
+                                                followed={e.followed} follow={props.follow} unFollow={props.unFollow}/>)
 
-    }, [])
-    const usersMap = users.map(e => <User key={e.id} name={e.name} status={e.status} id={e.id} ava={e.photos.small}/>)
+
     return (
-        <div className={s.blockPeople}>
-            {usersMap}
+
+        <div className={s.blockUsersPage}>
+            <div style={{height: '50px'}}>
+                <Paginator totalUsersCount={props.totalUsersCount}
+                           currentPage={props.currentPage}
+                           pageSize={props.pageSize}
+                           onPageChanged={props.onPageChanged}
+                />
+            </div>
+            <div className={s.blockUsers}>{usersMap}</div>
         </div>
     );
 

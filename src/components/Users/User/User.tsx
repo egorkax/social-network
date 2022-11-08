@@ -11,7 +11,9 @@ export const User = (props: any) => {
             <div className={s.name}>{props.name}</div>
             <div className={s.status}>{props.status ? props.status : 'Some status...'}</div>
             <div className={s.id}>{props.id}</div>
-            <button className={s.button}>Follow</button>
+            {props.followed ? <button onClick={() => props.unFollow(props.id)} className={s.button}>UnFollow</button> :
+                <button onClick={() => props.follow(props.id)} className={s.button}>Follow</button>}
+
 
         </div>
     );

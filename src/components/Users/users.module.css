@@ -1,5 +1,11 @@
-.blockPeople{
+.blockUsersPage {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+}
+
+.blockUsers {
+    display: flex;
     flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 30px;
 }

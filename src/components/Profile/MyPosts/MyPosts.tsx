@@ -22,7 +22,7 @@ export const MyPosts = (props: MyPostsPropsType) => {
         props.addPost()
     }
     return (
-        <div>
+        <div className={s.blockPosts}>
             <div className={s.blockAddPost}>
                 <textarea className={s.inputText} value={newPostText} onChange={onChangeValueInput}/>
                 <button className={s.button} onClick={onAddPost}>

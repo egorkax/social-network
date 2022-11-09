@@ -1,3 +1,7 @@
+.blockPosts{
+    margin-left: 20px;
+}
+
 .blockAddPost {
     display: flex;
     margin-top: 50px;

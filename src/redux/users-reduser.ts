@@ -1,3 +1,6 @@
+import {Dispatch} from "redux";
+import {usersAPI} from "../api/api";
+
 export type UserType = {
     "name": string
     "id": number
@@ -53,48 +56,71 @@ export const usersReducer = (state: initialStateType = initialState, action: Act
     }
 }
 type ActionsType =
-    ReturnType<typeof setUsersAC>
-    | ReturnType<typeof setTotalUsersCountAC>
-    | ReturnType<typeof setCurrentPageAC>
-    | ReturnType<typeof setFetchingAC>
-    | ReturnType<typeof followUserAC>
-    | ReturnType<typeof unFollowUserAC>
+    ReturnType<typeof setUsers>
+    | ReturnType<typeof setTotalUsersCount>
+    | ReturnType<typeof setCurrentPage>
+    | ReturnType<typeof setFetching>
+    | ReturnType<typeof followUser>
+    | ReturnType<typeof unFollowUser>
 
 
-export const setUsersAC = (users: UserType[]) => {
+export const setUsers = (users: UserType[]) => {
     return {
         type: 'SET-USER',
         users
     } as const
 }
-export const setTotalUsersCountAC = (value: number) => {
+export const setTotalUsersCount = (value: number) => {
     return {
         type: 'SET-TOTAL-USERS-COUNT',
         totalCount: value
     } as const
 }
-export const setFetchingAC = (value: boolean) => {
+export const setFetching = (value: boolean) => {
     return {
         type: 'SET-FETCHING',
         value
     } as const
 }
-export const setCurrentPageAC = (newPage: number) => {
+export const setCurrentPage = (newPage: number) => {
     return {
         type: 'SET-CURRENT-PAGE',
         newPage
     } as const
 }
-export const followUserAC = (userId: number) => {
+export const followUser = (userId: number) => {
     return {
         type: 'FOLLOW-USER',
         userId
     } as const
 }
-export const unFollowUserAC = (userId: number) => {
+export const unFollowUser = (userId: number) => {
     return {
         type: 'UN-FOLLOW-USER',
         userId
     } as const
+}
+
+//thunk
+
+export const followUserTC = (userId: number) => {
+    return (dispatch: Dispatch) => {
+        usersAPI.followUser(userId)
+            .then(res => {
+                if (res.data.resultCode === 0) {
+                    dispatch(followUser(userId))
+                }
+            })
+    }
+}
+export const unFollowUserTC = (userId: number) => {
+    return (dispatch: Dispatch) => {
+        usersAPI.unFollowUser(userId)
+            .then(res => {
+                if (res.data.resultCode === 0) {
+                    dispatch(unFollowUser(userId))
+                }
+            })
+    }
 }
 

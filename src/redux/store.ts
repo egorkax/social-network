@@ -4,12 +4,14 @@ import {TypedUseSelectorHook, useDispatch, useSelector} from "react-redux";
 import {profileReducer} from "./profile-reduser";
 import {dialogReducer} from "./dialog-reduser";
 import {usersReducer} from "./users-reduser";
+import {authReducer} from "./auth-reduser";
 
 
 const rootReducer = combineReducers({
     profilePage: profileReducer,
     dialogPage: dialogReducer,
     usersPage: usersReducer,
+    auth:authReducer
 })
 export const store = legacy_createStore(rootReducer, applyMiddleware(thunkMiddleware));
 

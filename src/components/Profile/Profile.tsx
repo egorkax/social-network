@@ -3,11 +3,14 @@ import s from './profile.module.css';
 import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
 import {MyPostsContainer} from "./MyPosts/MyPostsContainer";
 
-export const Profile = () => {
+export const Profile = (props: any) => {
+
     return (
-        <div className={s.blockProfile}>
-            <ProfileInfo/>
-            <MyPostsContainer/>
+        <div>
+            <div className={s.blockProfile}>
+                <ProfileInfo profile={props.profile}/>
+                <MyPostsContainer/>
+            </div>
         </div>
     );
 

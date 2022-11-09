@@ -8,7 +8,8 @@ let initialState: ProfilePagesTypes = {
         {id: v1(), message: 'What you lern?', likes: 22},
         {id: v1(), message: 'YO?', likes: 33},
         {id: v1(), message: '12345?', likes: 44}
-    ]
+    ],
+
 };
 
 
@@ -27,6 +28,10 @@ export const profileReducer = (state: ProfilePagesTypes = initialState, action: 
             }
             return {...state, newPostText: '', postData: [newPost, ...state.postData]}
         }
+        case "SET-USER-PROFILE": {
+
+            return {...state, profile: action.profile}
+        }
 
         default:
             return state
@@ -41,11 +46,14 @@ export const addPostAC = () => (
 export const updateNewPostTextAC = (newText: string) => (
     {type: 'UPDATE-NEW-POST-TEXT', newText: newText} as const)
 
+export const setUserProfile = (profile: UserProfileType) => (
+    {type: 'SET-USER-PROFILE', profile} as const)
 
 //type
 export type ActionsType =
     ReturnType<typeof addPostAC>
     | ReturnType<typeof updateNewPostTextAC>
+    | ReturnType<typeof setUserProfile>
 
 
 export type ProfilePagesTypes = {
@@ -59,8 +67,12 @@ export type PostType = {
     message: string
     likes: number
 }
+
+
 export type UserProfileType = {
-    "aboutMe": string
+
+
+    "aboutMe": null | string
     "contacts": {
         "facebook": null | string
         "website": null | string
@@ -76,8 +88,9 @@ export type UserProfileType = {
     "fullName": string
     "userId": number
     "photos": {
-        "small": undefined | string
-        "large": undefined | string
+        "small": null | string
+        "large": null | string
     }
 }
+
 

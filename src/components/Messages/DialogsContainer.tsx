@@ -1,9 +1,10 @@
-import React from 'react';
+import React, {ComponentType} from 'react';
 import {connect} from "react-redux";
 import {AppRootStateType} from "../../redux/store";
-import {Dispatch} from "redux";
+import {compose, Dispatch} from "redux";
 import {addMessageAC, DialogsDataType, MessagesDataType, updateNewMessageTextAC} from "../../redux/dialog-reduser";
 import {Dialogs} from "./Dialogs";
+import {withAuthRedirect} from "../../commons/hoc/withAuthRedirect";
 
 
 let mapStateToProps = (state: AppRootStateType): mapStateToPropsType => {
@@ -27,8 +28,11 @@ let mapDispatchToProps = (dispatch: Dispatch): mapDispatchToPropsType => {
     }
 }
 
+export const DialogsContainer = compose<ComponentType>(
+    connect(mapStateToProps, mapDispatchToProps),
+    withAuthRedirect
+)(Dialogs)
 
-export const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(Dialogs)
 
 //type
 type mapStateToPropsType = {

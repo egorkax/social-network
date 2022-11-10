@@ -4,7 +4,6 @@ import {Name} from "./Name/Name";
 import {Message} from "./Message/Message";
 import {ButtonIcons} from "../../commons/icons/Button";
 import {DialogsPropsType} from "./DialogsContainer";
-import {Navigate} from "react-router-dom";
 
 
 export const Dialogs = (props: DialogsPropsType) => {
@@ -20,10 +19,6 @@ export const Dialogs = (props: DialogsPropsType) => {
     const onAddPost = () => {
         props.addMessage()
     }
-    if (!props.isAuth) {
-        return <Navigate to={'/login'}/>
-    }
-
     return (
         <div className={s.blockMessages}>
             <div>

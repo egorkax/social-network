@@ -1,11 +1,12 @@
-import React from "react";
+import React, {Component, ComponentType} from "react";
 import {Profile} from "./Profile";
 import {connect} from "react-redux";
 import {AppRootStateType} from "../../redux/store";
 import {getUserProfile, setUserProfile} from "../../redux/profile-reduser";
 import {useLocation, useNavigate, useParams,} from "react-router-dom";
+import {compose} from "redux";
 
-export class ProfileClassContainer extends React.Component<any, any> {
+class ProfileClassContainer extends React.Component<any, any> {
     componentDidMount() {
         debugger
         let userId = this.props.router.params.userId;
@@ -43,7 +44,7 @@ let mapStateToProps = (state: AppRootStateType) => {
     }
 }
 
-export const ProfileContainer = connect(mapStateToProps, {
-    setUserProfile,
-    getUserProfile
-})(withRouter(ProfileClassContainer))
+export const ProfileContainer = compose<ComponentType>(
+    connect(mapStateToProps, {setUserProfile, getUserProfile}),
+    withRouter
+)(ProfileClassContainer)

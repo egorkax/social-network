@@ -1,7 +1,9 @@
-.blockHeader{
+.blockHeader {
     display: flex;
     justify-content: space-between;
+
 }
+
 .logo {
     width: 70px;
     height: 70px;
@@ -18,10 +20,12 @@
     height: 40px;
     margin-right: 200px;
 }
-.icon{
+
+.icon {
     margin-top: 5px;
     margin-left: 5px;
 }
+
 .input {
     background-color: #fff;
     border: 0;

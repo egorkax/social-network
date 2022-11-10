@@ -47,6 +47,13 @@
 
 }
 
+.button:disabled {
+    opacity: 0.5
+}
+.button:disabled:hover{
+    cursor: not-allowed;
+}
+
 .button:hover {
     background-color: #0965ee;
     border-color: #0965ee;

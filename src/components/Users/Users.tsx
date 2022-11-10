@@ -9,6 +9,7 @@ type UsersType = {
     totalUsersCount: number
     currentPage: number
     pageSize: number
+    isFollowing: Array<number>
     followUser: (userId: number) => void
     unFollowUser: (userId: number) => void
     onPageChanged: (newPage: number) => void
@@ -19,8 +20,10 @@ export const Users = (props: UsersType) => {
 
     const usersMap = props.users.map(e => <User key={e.id} name={e.name} status={e.status} id={e.id}
                                                 ava={e.photos.small}
-                                                followed={e.followed} follow={props.followUser}
-                                                unFollow={props.unFollowUser}/>)
+                                                followed={e.followed}
+                                                follow={props.followUser}
+                                                unFollow={props.unFollowUser}
+                                                isFollowing={props.isFollowing}/>)
 
 
     return (

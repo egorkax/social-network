@@ -1,5 +1,9 @@
+import {Dispatch} from "redux";
+import {authAPI} from "../api/api";
+
 let initialState: initialStateType = {
-    profileData: null
+    profileData: null,
+    isAuth: false
 };
 
 
@@ -7,8 +11,8 @@ let initialState: initialStateType = {
 export const authReducer = (state: initialStateType = initialState, action: ActionsType): initialStateType => {
     switch (action.type) {
         case "SET-PROFILE-DATA": {
-            debugger
-            return {...state, profileData: action.profileData}
+
+            return {...state, profileData: action.profileData, isAuth: true}
         }
 
         default:
@@ -34,6 +38,16 @@ export type ProfileDataType = {
 
 export type initialStateType = {
     profileData: ProfileDataType | null
+    isAuth: boolean
+}
+
+export const authMe = () => (dispatch: Dispatch) => {
+    authAPI.authMe()
+        .then((res) => {
+            if (res.data.resultCode === 0) {
+                dispatch(setProfileData(res.data.data))
+            }
+        })
 }
 
 

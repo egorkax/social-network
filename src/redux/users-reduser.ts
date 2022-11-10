@@ -19,6 +19,7 @@ export type initialStateType = {
     currentPage: number
     totalUsersCount: number
     isFetching: boolean
+    isFollowing: Array<number>
 }
 
 let initialState: initialStateType = {
@@ -26,7 +27,8 @@ let initialState: initialStateType = {
     pageSize: 8,
     currentPage: 1,
     totalUsersCount: 0,
-    isFetching: false
+    isFetching: false,
+    isFollowing: [],
 
 };
 
@@ -51,6 +53,13 @@ export const usersReducer = (state: initialStateType = initialState, action: Act
         case "UN-FOLLOW-USER": {
             return {...state, users: state.users.map(e => e.id === action.userId ? {...e, followed: false} : e)}
         }
+        case "SET-FOLLOWING-PROGRESS": {
+
+            return {
+                ...state,
+                isFollowing: action.isFetchingUser ? [...state.isFollowing, action.userId] : [...state.isFollowing.filter(e => e !== action.userId)]
+            }
+        }
         default:
             return state
     }
@@ -60,6 +69,7 @@ type ActionsType =
     | ReturnType<typeof setTotalUsersCount>
     | ReturnType<typeof setCurrentPage>
     | ReturnType<typeof setFetching>
+    | ReturnType<typeof setFollowingProgress>
     | ReturnType<typeof followUser>
     | ReturnType<typeof unFollowUser>
 
@@ -80,6 +90,13 @@ export const setFetching = (value: boolean) => {
     return {
         type: 'SET-FETCHING',
         value
+    } as const
+}
+export const setFollowingProgress = (isFetchingUser: boolean, userId: number) => {
+    return {
+        type: 'SET-FOLLOWING-PROGRESS',
+        isFetchingUser,
+        userId
     } as const
 }
 export const setCurrentPage = (newPage: number) => {
@@ -105,22 +122,38 @@ export const unFollowUser = (userId: number) => {
 
 export const followUserTC = (userId: number) => {
     return (dispatch: Dispatch) => {
+
+        dispatch(setFollowingProgress(true, userId))
         usersAPI.followUser(userId)
             .then(res => {
                 if (res.data.resultCode === 0) {
                     dispatch(followUser(userId))
+                    dispatch(setFollowingProgress(false, userId))
                 }
             })
     }
 }
 export const unFollowUserTC = (userId: number) => {
     return (dispatch: Dispatch) => {
+        dispatch(setFollowingProgress(true, userId))
         usersAPI.unFollowUser(userId)
             .then(res => {
                 if (res.data.resultCode === 0) {
                     dispatch(unFollowUser(userId))
+                    dispatch(setFollowingProgress(false, userId))
                 }
             })
     }
+}
+
+export const getUsers = (currentPage: number, pageSize: number) => (dispatch: Dispatch) => {
+    dispatch(setFetching(false))
+    usersAPI.getUsers(currentPage, pageSize)
+        .then((res) => {
+            dispatch(setCurrentPage(currentPage))
+            dispatch(setUsers(res.data.items))
+            dispatch(setTotalUsersCount(res.data.totalCount))
+            dispatch(setFetching(true))
+        })
 }
 

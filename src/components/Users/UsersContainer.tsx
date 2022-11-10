@@ -1,16 +1,7 @@
 import {connect} from "react-redux";
 import {AppRootStateType} from "../../redux/store";
-import {
-    followUserTC,
-    setCurrentPage,
-    setFetching,
-    setTotalUsersCount,
-    setUsers,
-    unFollowUserTC,
-    UserType
-} from "../../redux/users-reduser";
+import {followUserTC, getUsers, unFollowUserTC, UserType} from "../../redux/users-reduser";
 import React from "react";
-import {usersAPI} from "../../api/api";
 import {Users} from "./Users";
 import {Preloader} from "../Preloader/Preloader";
 
@@ -18,26 +9,12 @@ import {Preloader} from "../Preloader/Preloader";
 export class UsersCC extends React.Component<UsersPropsType, UserType> {
 
     componentDidMount() {
-        this.props.setFetching(false)
-        usersAPI.getUsers(this.props.currentPage, 8)
-            .then((res) => {
-                this.props.setUsers(res.data.items)
-                this.props.setTotalUsersCount(res.data.totalCount)
-                this.props.setFetching(true)
-            })
+        this.props.getUsers(this.props.currentPage, this.props.pageSize)
     }
 
     onPageChanged = (value: number) => {
-        this.props.setCurrentPage(value)
-        this.props.setFetching(false)
-        usersAPI.getUsers(value, 8)
-            .then((res) => {
-                this.props.setUsers(res.data.items)
-                this.props.setTotalUsersCount(res.data.totalCount)
-                this.props.setFetching(true)
-            })
+        this.props.getUsers(value, this.props.pageSize)
     }
-
 
     render() {
         return (
@@ -49,6 +26,7 @@ export class UsersCC extends React.Component<UsersPropsType, UserType> {
                                                 currentPage={this.props.currentPage}
                                                 pageSize={this.props.pageSize}
                                                 onPageChanged={this.onPageChanged}
+                                                isFollowing={this.props.isFollowing}
 
                     />
                     : <Preloader/>}
@@ -68,58 +46,32 @@ let mapStateToProps = (state: AppRootStateType): mapStateToPropsType => {
         pageSize: state.usersPage.pageSize,
         totalUsersCount: state.usersPage.totalUsersCount,
         isFetching: state.usersPage.isFetching,
+        isFollowing: state.usersPage.isFollowing
 
 
     }
 }
-//  let mapDispatchToProps = (dispatch: Dispatch): mapDispatchToPropsType => {
-//     return {
-//         setUsers: (users) => {
-//             dispatch(setUsers(users))
-//         },
-//         setTotalUsersCount: (value) => {
-//             dispatch(setTotalUsersCount(value))
-//         },
-//         setCurrentPage: (newPage) => {
-//             dispatch(setCurrentPage(newPage))
-//         },
-//         setFetching: (value) => {
-//             dispatch(setFetching(value))
-//         },
-//         followUser: (userId) => {
-//             dispatch(followUser(userId))
-//         },
-//         unFollowUser: (userId) => {
-//             dispatch(unFollowUser(userId))
-//         },
-//
-//     }
-// }
-
 
 export const UsersContainer = connect(mapStateToProps, {
-    setUsers,
-    setTotalUsersCount,
-    setCurrentPage,
-    setFetching,
     followUserTC,
-    unFollowUserTC
+    unFollowUserTC,
+    getUsers,
 })(UsersCC)
 
 //type
-type mapStateToPropsType = {
+type    mapStateToPropsType = {
     users: UserType[]
     pageSize: number
     currentPage: number
     totalUsersCount: number
     isFetching: boolean
+    isFollowing: Array<number>
 }
-type mapDispatchToPropsType = {
-    setUsers: (users: UserType[]) => void
-    setTotalUsersCount: (value: number) => void
-    setCurrentPage: (newPage: number) => void
-    setFetching: (value: boolean) => void
+type    mapDispatchToPropsType = {
+
     followUserTC: (userId: number) => void
     unFollowUserTC: (userId: number) => void
+    getUsers: (currentPage: number, pageSize: number) => void
 }
+
 export type UsersPropsType = mapDispatchToPropsType & mapStateToPropsType

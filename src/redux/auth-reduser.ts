@@ -44,10 +44,18 @@ export type initialStateType = {
 export const authMe = () => (dispatch: Dispatch) => {
     authAPI.authMe()
         .then((res) => {
+
             if (res.data.resultCode === 0) {
                 dispatch(setProfileData(res.data.data))
             }
         })
 }
 
+export const logIn = (email: string, password: string, rememberMe: boolean) => (dispatch: Dispatch) => {
+    const loginData = {email, password, rememberMe}
+    authAPI.login(loginData)
+        .then((res) => {
+            debugger
+        })
+}
 

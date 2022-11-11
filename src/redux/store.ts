@@ -11,7 +11,7 @@ const rootReducer = combineReducers({
     profilePage: profileReducer,
     dialogPage: dialogReducer,
     usersPage: usersReducer,
-    auth:authReducer
+    auth:authReducer,
 })
 export const store = legacy_createStore(rootReducer, applyMiddleware(thunkMiddleware));
 

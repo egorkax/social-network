@@ -10,6 +10,7 @@ import {UsersContainer} from "./components/Users/UsersContainer";
 import {ProfileContainer} from "./components/Profile/ProfileContainer";
 import {HeaderContainer} from "./components/Header/HeaderContainer";
 import {Login} from "./components/Login/Login";
+import {LoginContainer} from "./components/Login/LoginContainer";
 
 
 export const App = () => {
@@ -29,7 +30,7 @@ export const App = () => {
                         <Route path={'/news'} element={<News/>}/>
                         <Route path={'/music'} element={<Music/>}/>
                         <Route path={'/setting'} element={<Setting/>}/>
-                        <Route path={'/login'} element={<Login/>}/>
+                        <Route path={'/login'} element={<LoginContainer/>}/>
                     </Routes>
                 </div>
             </div>

@@ -80,6 +80,7 @@ export const setUsers = (users: UserType[]) => {
         users
     } as const
 }
+
 export const setTotalUsersCount = (value: number) => {
     return {
         type: 'SET-TOTAL-USERS-COUNT',

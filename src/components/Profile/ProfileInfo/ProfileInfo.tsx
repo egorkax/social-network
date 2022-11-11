@@ -6,6 +6,9 @@ import {Status} from "./Status/Status";
 
 type ProfileInfoPropsType = {
     profile: UserProfileType
+    status: string
+    updateStatus: any
+
 }
 
 
@@ -19,7 +22,9 @@ export const ProfileInfo = (props: ProfileInfoPropsType) => {
                              src={props.profile.photos.small === null ? UserAva : props.profile.photos.small}/>
                         <div>
                             <div className={s.name}>{props.profile.fullName ? props.profile.fullName : 'Some Name...'}</div>
-                            <div className={s.status}><Status/></div>
+                            <div className={s.status}>
+                                <Status status={props.status} updateStatus={props.updateStatus}/>
+                            </div>
                         </div>
 
                     </div>

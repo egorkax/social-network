@@ -11,6 +11,7 @@ let initialState: ProfilePagesTypes = {
         {id: v1(), message: 'YO?', likes: 33},
         {id: v1(), message: '12345?', likes: 44}
     ],
+    status: '',
 
 };
 
@@ -34,6 +35,9 @@ export const profileReducer = (state: ProfilePagesTypes = initialState, action: 
 
             return {...state, profile: action.profile}
         }
+        case "SET-USER-STATUS": {
+            return {...state, status: action.status}
+        }
 
         default:
             return state
@@ -51,6 +55,13 @@ export const updateNewPostTextAC = (newText: string) => (
 export const setUserProfile = (profile: UserProfileType) => (
     {type: 'SET-USER-PROFILE', profile} as const)
 
+export const setUserStatus = (status: string) => {
+    return {
+        type: 'SET-USER-STATUS',
+        status
+    } as const
+}
+
 //thunk
 export const getUserProfile = (userId: number) => (dispatch: Dispatch) => {
     usersAPI.getUserProfile(userId)
@@ -59,17 +70,34 @@ export const getUserProfile = (userId: number) => (dispatch: Dispatch) => {
         })
 }
 
+export const getUserStatus = (userId: number) => (dispatch: Dispatch) => {
+    usersAPI.getUserStatus(userId)
+        .then((res) => {
+            dispatch(setUserStatus(res.data))
+        })
+}
+
+export const updateStatus = (status: string) => (dispatch: Dispatch) => {
+    usersAPI.updateStatus(status)
+        .then((res) => {
+            debugger
+            dispatch(setUserStatus(res.data))
+        })
+}
+
 //type
 export type ActionsType =
     ReturnType<typeof addPostAC>
     | ReturnType<typeof updateNewPostTextAC>
     | ReturnType<typeof setUserProfile>
+    | ReturnType<typeof setUserStatus>
 
 
 export type ProfilePagesTypes = {
     postData: Array<PostType>
     newPostText: string
     profile: null | UserProfileType
+    status: null | string
 
 }
 export type PostType = {

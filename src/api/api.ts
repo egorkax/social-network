@@ -40,7 +40,10 @@ export const authAPI = {
     },
     login(data: LoginDataType) {
         return instance.post(`auth/login`, data)
-    }
+    },
+    logOut() {
+        return instance.delete(`auth/login`)
+    },
 }
 
 export type LoginDataType = {

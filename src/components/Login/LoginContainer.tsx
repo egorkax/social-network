@@ -6,7 +6,9 @@ import {logIn} from "../../redux/auth-reduser";
 
 
 let mapStateToProps = (state: AppRootStateType): mapStateToPropsType => {
-    return {}
+    return {
+        isAuth: state.auth.isAuth
+    }
 }
 
 export const LoginContainer = connect(mapStateToProps, {logIn})(Login)

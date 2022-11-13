@@ -12,7 +12,7 @@ export const Header = (props: any) => {
                 <span className={s.icon}><SearchIcon/></span>
                 <input type={"text"} placeholder={'Search'} className={s.input}/>
             </div>
-            <AuthData profileData={props.profileData}/>
+            <AuthData profileData={props.profileData} logOut={props.logOut}/>
         </header>
     )
 

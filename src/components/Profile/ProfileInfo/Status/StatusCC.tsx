@@ -1,6 +1,6 @@
 import React, {ChangeEvent} from "react";
 
-export class Status extends React.Component<any, any> {
+export class StatusCC extends React.Component<any, any> {
 
     state = {
         editMode: false,

@@ -2,7 +2,7 @@ import React from 'react';
 import s from "./profileInfo.module.css";
 import UserAva from './../../../commons/icons/user/UserAva.svg'
 import {UserProfileType} from "../../../redux/profile-reduser";
-import {Status} from "./Status/Status";
+import {Status} from "./Status/StatusFC";
 
 type ProfileInfoPropsType = {
     profile: UserProfileType

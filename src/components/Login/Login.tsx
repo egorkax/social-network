@@ -1,13 +1,14 @@
 import React from 'react';
-import {NavLink} from "react-router-dom";
+import {Navigate, NavLink} from "react-router-dom";
 import s from './login.module.css'
 import {useFormik} from "formik";
 
 export const Login = (props: any) => {
+    if (props.isAuth) return <Navigate to={'/profile'}/>
     return (
         <div className={s.blockLogin}>
             <h1>Sign In</h1>
-            <SignupForm logIn={props.logIn}/>
+            <SignInForm logIn={props.logIn}/>
             <div className='add-reg-block'>
                 <p>Already have an account?</p>
                 <NavLink className='underlinedLink' to={'/registration'}>Sign Up</NavLink>
@@ -16,7 +17,7 @@ export const Login = (props: any) => {
     );
 }
 
-export const SignupForm = (props: any) => {
+export const SignInForm = (props: any) => {
     const formik = useFormik({
         initialValues: {
             email: '',

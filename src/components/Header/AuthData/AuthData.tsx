@@ -9,7 +9,7 @@ export const AuthData = (props: any) => {
                 <div className={s.blockAuth}>
                     <img className={s.ava}/>
                     <span>{props.profileData.login}</span>
-                    <span>LogOut</span>
+                    <span onClick={props.logOut}>LogOut</span>
                 </div>
                 : <div className={s.blockAuth}>
                     <NavLink to={'/login'}>LogIn</NavLink>

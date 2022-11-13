@@ -1,7 +1,7 @@
 //reducer
 import {v1} from "uuid";
 
-let initialState: DialogPagesType = {
+let initialState: initialStateType = {
     dialogsData: [
         {id: v1(), name: 'Egor'},
         {id: v1(), name: 'Polina'},
@@ -17,7 +17,7 @@ let initialState: DialogPagesType = {
         {id: v1(), message: 'Why are you?Bla Bla Bla Bla'},
     ]
 };
-export const dialogReducer = (state: DialogPagesType = initialState, action: ActionsType): DialogPagesType => {
+export const dialogReducer = (state: initialStateType = initialState, action: DialogsActionType): initialStateType => {
     switch (action.type) {
         case "UPDATE-NEW-MESSAGE-TEXT": {
             return {...state, newMessageText: action.newText}
@@ -54,7 +54,7 @@ export const updateNewMessageTextAC = (newText: string): UpdateNewPostMessageAct
 }
 
 //type
-export type DialogPagesType = {
+export type initialStateType = {
     dialogsData: Array<DialogsDataType>
     newMessageText: string
     messagesData: Array<MessagesDataType>
@@ -75,4 +75,4 @@ export type UpdateNewPostMessageActionType = {
     type: 'UPDATE-NEW-MESSAGE-TEXT'
     newText: string
 }
-export type ActionsType = AddMessageActionType | UpdateNewPostMessageActionType
+export type DialogsActionType = AddMessageActionType | UpdateNewPostMessageActionType

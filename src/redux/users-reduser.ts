@@ -1,27 +1,6 @@
 import {Dispatch} from "redux";
 import {usersAPI} from "../api/api";
 
-export type UserType = {
-    "name": string
-    "id": number
-    "photos": {
-        "small": null
-        "large": null
-    },
-    "status": null
-    "followed": boolean
-}
-
-
-export type initialStateType = {
-    users: UserType[]
-    pageSize: number
-    currentPage: number
-    totalUsersCount: number
-    isFetching: boolean
-    isFollowing: Array<number>
-}
-
 let initialState: initialStateType = {
     users: [],
     pageSize: 8,
@@ -32,7 +11,7 @@ let initialState: initialStateType = {
 
 };
 
-export const usersReducer = (state: initialStateType = initialState, action: ActionsType): initialStateType => {
+export const usersReducer = (state: initialStateType = initialState, action: UsersActionType): initialStateType => {
     switch (action.type) {
 
         case "SET-USER": {
@@ -64,23 +43,14 @@ export const usersReducer = (state: initialStateType = initialState, action: Act
             return state
     }
 }
-type ActionsType =
-    ReturnType<typeof setUsers>
-    | ReturnType<typeof setTotalUsersCount>
-    | ReturnType<typeof setCurrentPage>
-    | ReturnType<typeof setFetching>
-    | ReturnType<typeof setFollowingProgress>
-    | ReturnType<typeof followUser>
-    | ReturnType<typeof unFollowUser>
 
-
+// AC
 export const setUsers = (users: UserType[]) => {
     return {
         type: 'SET-USER',
         users
     } as const
 }
-
 export const setTotalUsersCount = (value: number) => {
     return {
         type: 'SET-TOTAL-USERS-COUNT',
@@ -120,7 +90,6 @@ export const unFollowUser = (userId: number) => {
 }
 
 //thunk
-
 export const followUserTC = (userId: number) => {
     return (dispatch: Dispatch) => {
 
@@ -134,6 +103,7 @@ export const followUserTC = (userId: number) => {
             })
     }
 }
+
 export const unFollowUserTC = (userId: number) => {
     return (dispatch: Dispatch) => {
         dispatch(setFollowingProgress(true, userId))
@@ -149,12 +119,39 @@ export const unFollowUserTC = (userId: number) => {
 
 export const getUsers = (currentPage: number, pageSize: number) => (dispatch: Dispatch) => {
     dispatch(setFetching(false))
+    dispatch(setCurrentPage(currentPage))
     usersAPI.getUsers(currentPage, pageSize)
         .then((res) => {
-            dispatch(setCurrentPage(currentPage))
             dispatch(setUsers(res.data.items))
             dispatch(setTotalUsersCount(res.data.totalCount))
             dispatch(setFetching(true))
         })
 }
 
+//type
+export type initialStateType = {
+    users: UserType[]
+    pageSize: number
+    currentPage: number
+    totalUsersCount: number
+    isFetching: boolean
+    isFollowing: Array<number>
+}
+export type UserType = {
+    "name": string
+    "id": number
+    "photos": {
+        "small": null
+        "large": null
+    },
+    "status": null
+    "followed": boolean
+}
+export type UsersActionType =
+    ReturnType<typeof setUsers>
+    | ReturnType<typeof setTotalUsersCount>
+    | ReturnType<typeof setCurrentPage>
+    | ReturnType<typeof setFetching>
+    | ReturnType<typeof setFollowingProgress>
+    | ReturnType<typeof followUser>
+    | ReturnType<typeof unFollowUser>

@@ -14,10 +14,8 @@ let initialState: ProfilePagesTypes = {
     status: '',
 
 };
-
-
 //reducer
-export const profileReducer = (state: ProfilePagesTypes = initialState, action: ActionsType): ProfilePagesTypes => {
+export const profileReducer = (state: ProfilePagesTypes = initialState, action: ProfileActionsType): ProfilePagesTypes => {
     switch (action.type) {
         case "UPDATE-NEW-POST-TEXT": {
             return {...state, newPostText: action.newText}
@@ -44,7 +42,6 @@ export const profileReducer = (state: ProfilePagesTypes = initialState, action: 
     }
 }
 
-
 //AC
 export const addPostAC = () => (
     {type: 'ADD-POST'} as const)
@@ -56,10 +53,7 @@ export const setUserProfile = (profile: UserProfileType) => (
     {type: 'SET-USER-PROFILE', profile} as const)
 
 export const setUserStatus = (status: string) => {
-    return {
-        type: 'SET-USER-STATUS',
-        status
-    } as const
+    return {type: 'SET-USER-STATUS', status} as const
 }
 
 //thunk
@@ -77,22 +71,15 @@ export const getUserStatus = (userId: number) => (dispatch: Dispatch) => {
         })
 }
 
-export const updateStatus = (status: string) => (dispatch: Dispatch) => {
+export const updateStatusTC = (status: string) => (dispatch: Dispatch) => {
     usersAPI.updateStatus(status)
         .then((res) => {
-            debugger
-            dispatch(setUserStatus(res.data))
+            if (res.data.resultCode === 0)
+                dispatch(setUserStatus(status))
         })
 }
 
 //type
-export type ActionsType =
-    ReturnType<typeof addPostAC>
-    | ReturnType<typeof updateNewPostTextAC>
-    | ReturnType<typeof setUserProfile>
-    | ReturnType<typeof setUserStatus>
-
-
 export type ProfilePagesTypes = {
     postData: Array<PostType>
     newPostText: string
@@ -105,8 +92,6 @@ export type PostType = {
     message: string
     likes: number
 }
-
-
 export type UserProfileType = {
 
 
@@ -130,5 +115,13 @@ export type UserProfileType = {
         "large": null | string
     }
 }
+export type ProfileActionsType =
+    ReturnType<typeof addPostAC>
+    | ReturnType<typeof updateNewPostTextAC>
+    | ReturnType<typeof setUserProfile>
+    | ReturnType<typeof setUserStatus>
+
+
+
 
 

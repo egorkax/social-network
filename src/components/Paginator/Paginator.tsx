@@ -8,6 +8,7 @@ type PaginatorPropsType = {
     onPageChanged: (newPage: number) => void
 }
 export const Paginator = (props: PaginatorPropsType) => {
+    debugger
     let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize)
     let page = []
     for (let i = 1; i <= pagesCount; i++) page.push(i)

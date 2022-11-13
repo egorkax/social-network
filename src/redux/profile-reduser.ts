@@ -1,6 +1,7 @@
 import {v1} from "uuid";
 import {Dispatch} from "redux";
 import {usersAPI} from "../api/api";
+import {AppThunk} from "./store";
 
 let initialState: ProfilePagesTypes = {
     profile: null,
@@ -57,26 +58,20 @@ export const setUserStatus = (status: string) => {
 }
 
 //thunk
-export const getUserProfile = (userId: number) => (dispatch: Dispatch) => {
-    usersAPI.getUserProfile(userId)
-        .then((res) => {
-            dispatch(setUserProfile(res.data))
-        })
+export const getUserProfile = (userId: number): AppThunk => async (dispatch) => {
+    let res = await usersAPI.getUserProfile(userId)
+    dispatch(setUserProfile(res.data))
 }
 
-export const getUserStatus = (userId: number) => (dispatch: Dispatch) => {
-    usersAPI.getUserStatus(userId)
-        .then((res) => {
-            dispatch(setUserStatus(res.data))
-        })
+export const getUserStatus = (userId: number): AppThunk => async (dispatch) => {
+    let res = await usersAPI.getUserStatus(userId)
+    dispatch(setUserStatus(res.data))
 }
 
-export const updateStatusTC = (status: string) => (dispatch: Dispatch) => {
-    usersAPI.updateStatus(status)
-        .then((res) => {
-            if (res.data.resultCode === 0)
-                dispatch(setUserStatus(status))
-        })
+export const updateStatusTC = (status: string): AppThunk => async (dispatch) => {
+    let res = await usersAPI.updateStatus(status)
+    if (res.data.resultCode === 0)
+        dispatch(setUserStatus(status))
 }
 
 //type

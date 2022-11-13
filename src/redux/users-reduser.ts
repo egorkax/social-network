@@ -1,5 +1,6 @@
 import {Dispatch} from "redux";
 import {usersAPI} from "../api/api";
+import {AppThunk} from "./store";
 
 let initialState: initialStateType = {
     users: [],
@@ -90,42 +91,35 @@ export const unFollowUser = (userId: number) => {
 }
 
 //thunk
-export const followUserTC = (userId: number) => {
-    return (dispatch: Dispatch) => {
-
+export const followUserTC = (userId: number): AppThunk => {
+    return async (dispatch) => {
         dispatch(setFollowingProgress(true, userId))
-        usersAPI.followUser(userId)
-            .then(res => {
-                if (res.data.resultCode === 0) {
-                    dispatch(followUser(userId))
-                    dispatch(setFollowingProgress(false, userId))
-                }
-            })
+        let res = await usersAPI.followUser(userId)
+        if (res.data.resultCode === 0) {
+            dispatch(followUser(userId))
+            dispatch(setFollowingProgress(false, userId))
+        }
     }
 }
 
-export const unFollowUserTC = (userId: number) => {
-    return (dispatch: Dispatch) => {
+export const unFollowUserTC = (userId: number): AppThunk => {
+    return async (dispatch) => {
         dispatch(setFollowingProgress(true, userId))
-        usersAPI.unFollowUser(userId)
-            .then(res => {
-                if (res.data.resultCode === 0) {
-                    dispatch(unFollowUser(userId))
-                    dispatch(setFollowingProgress(false, userId))
-                }
-            })
+        let res = await usersAPI.unFollowUser(userId)
+        if (res.data.resultCode === 0) {
+            dispatch(unFollowUser(userId))
+            dispatch(setFollowingProgress(false, userId))
+        }
     }
 }
 
-export const getUsers = (currentPage: number, pageSize: number) => (dispatch: Dispatch) => {
+export const getUsers = (currentPage: number, pageSize: number): AppThunk => async (dispatch) => {
     dispatch(setFetching(false))
     dispatch(setCurrentPage(currentPage))
-    usersAPI.getUsers(currentPage, pageSize)
-        .then((res) => {
-            dispatch(setUsers(res.data.items))
-            dispatch(setTotalUsersCount(res.data.totalCount))
-            dispatch(setFetching(true))
-        })
+    let res = await usersAPI.getUsers(currentPage, pageSize)
+    dispatch(setUsers(res.data.items))
+    dispatch(setTotalUsersCount(res.data.totalCount))
+    dispatch(setFetching(true))
 }
 
 //type

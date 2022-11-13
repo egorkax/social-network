@@ -23,9 +23,8 @@ export const setInitialized = () => (
     {type: 'SET-INITIALIZED-SUCCESS'})
 
 //thunk
-export const initializeApp = (): AppThunk => (dispatch) => {
+export const initializeApp = (): AppThunk => async (dispatch) => {
     let promiseRes = dispatch(authMe())
-    debugger
     Promise.all([promiseRes])
         .then(() => {
             debugger

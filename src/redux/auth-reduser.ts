@@ -24,33 +24,26 @@ export const setProfileData = (profileData: ProfileDataType | null, isAuth: bool
     {type: 'SET-PROFILE-DATA', profileData, isAuth} as const)
 
 //thunk
-export const authMe = (): AppThunk => (dispatch) => {
-    return authAPI.authMe()
-        .then((res) => {
-
-            if (res.data.resultCode === 0) {
-                dispatch(setProfileData(res.data.data, true))
-            }
-        })
+export const authMe = (): AppThunk => async (dispatch) => {
+    let response = await authAPI.authMe()
+    if (response.data.resultCode === 0) {
+        dispatch(setProfileData(response.data.data, true))
+    }
 }
 
-export const logIn = (email: string, password: string, rememberMe: boolean): AppThunk => (dispatch) => {
+export const logIn = (email: string, password: string, rememberMe: boolean): AppThunk => async (dispatch) => {
     const loginData = {email, password, rememberMe}
-    authAPI.login(loginData)
-        .then((res) => {
-            if (res.data.resultCode === 0) {
-                dispatch(authMe())
-            }
-        })
+    let response = await authAPI.login(loginData)
+    if (response.data.resultCode === 0) {
+        dispatch(authMe())
+    }
 }
 
-export const logOut = (): AppThunk => (dispatch) => {
-    authAPI.logOut()
-        .then((res) => {
-            if (res.data.resultCode === 0) {
-                dispatch(setProfileData(null, false))
-            }
-        })
+export const logOut = (): AppThunk => async (dispatch) => {
+    let res = await authAPI.logOut()
+    if (res.data.resultCode === 0) {
+        dispatch(setProfileData(null, false))
+    }
 }
 
 //type

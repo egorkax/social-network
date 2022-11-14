@@ -1,4 +1,3 @@
-import {Dispatch} from "redux";
 import {usersAPI} from "../api/api";
 import {AppThunk} from "./store";
 
@@ -17,6 +16,9 @@ export const usersReducer = (state: initialStateType = initialState, action: Use
 
         case "SET-USER": {
             return {...state, users: [...action.users]}
+        }
+        case "SET-PAGE-SIZE-USERS": {
+            return {...state, pageSize: action.pageSize}
         }
         case "SET-TOTAL-USERS-COUNT": {
             return {...state, totalUsersCount: action.totalCount}
@@ -50,6 +52,12 @@ export const setUsers = (users: UserType[]) => {
     return {
         type: 'SET-USER',
         users
+    } as const
+}
+export const setPageSizeUsers = (pageSize: number) => {
+    return {
+        type: 'SET-PAGE-SIZE-USERS',
+        pageSize
     } as const
 }
 export const setTotalUsersCount = (value: number) => {
@@ -116,6 +124,8 @@ export const unFollowUserTC = (userId: number): AppThunk => {
 export const getUsers = (currentPage: number, pageSize: number): AppThunk => async (dispatch) => {
     dispatch(setFetching(false))
     dispatch(setCurrentPage(currentPage))
+    dispatch(setPageSizeUsers(pageSize))
+    debugger
     let res = await usersAPI.getUsers(currentPage, pageSize)
     dispatch(setUsers(res.data.items))
     dispatch(setTotalUsersCount(res.data.totalCount))
@@ -143,6 +153,7 @@ export type UserType = {
 }
 export type UsersActionType =
     ReturnType<typeof setUsers>
+    | ReturnType<typeof setPageSizeUsers>
     | ReturnType<typeof setTotalUsersCount>
     | ReturnType<typeof setCurrentPage>
     | ReturnType<typeof setFetching>

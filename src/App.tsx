@@ -6,7 +6,6 @@ import {News} from "./components/News/News";
 import {Music} from "./components/Music/Music";
 import {Setting} from "./components/Setting/Setting";
 import {DialogsContainer} from "./components/Messages/DialogsContainer";
-import {UsersContainer} from "./components/Users/UsersContainer";
 import {ProfileContainer, withRouter} from "./components/Profile/ProfileContainer";
 import {HeaderContainer} from "./components/Header/HeaderContainer";
 import {LoginContainer} from "./components/Login/LoginContainer";
@@ -15,6 +14,7 @@ import {compose} from "redux";
 import {initializeApp} from "./redux/app-reduser";
 import {AppRootStateType} from "./redux/store";
 import {Preloader} from "./components/Preloader/Preloader";
+import {Users} from "./components/Users/Users";
 
 
 class App extends React.Component<any, any> {
@@ -38,7 +38,7 @@ class App extends React.Component<any, any> {
                                 <Route path={':userId'} element={<ProfileContainer/>}/>
                             </Route>
                             <Route path={'/dialogs'} element={<DialogsContainer/>}/>
-                            <Route path={'/users'} element={<UsersContainer/>}/>
+                            <Route path={'/users'} element={<Users/>}/>
                             <Route path={'/news'} element={<News/>}/>
                             <Route path={'/music'} element={<Music/>}/>
                             <Route path={'/setting'} element={<Setting/>}/>

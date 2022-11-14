@@ -1,3 +1,14 @@
+.blockPaginator{
+    display: flex;
+    flex-direction: row;
+}
+
+.show {
+    width: 250px;
+    display: flex;
+    justify-content: space-between;
+}
+
 .currentPage {
     font-family: dm sans, sans-serif;
     color: black;

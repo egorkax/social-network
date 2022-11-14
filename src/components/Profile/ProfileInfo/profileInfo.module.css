@@ -8,6 +8,7 @@
 .blockPreview {
     display: flex;
     align-items: center;
+    flex-direction: row-reverse;
     height: 150px;
     width: 750px;
     border-radius: 15px 15px 0 0;
@@ -16,23 +17,30 @@
 }
 
 .smallAva {
+
     width: 100px;
     height: 100px;
     border-radius: 50%;
     border: 5px white solid;
     background-color: #dce8f3;
     margin-left: 20px;
+    margin-right: 30px;
 }
 
 .name {
+
     font-weight: bold;
     font-size: 24px;
     margin-top: 65px;
     margin-left: 15px;
 }
 
-.about {
+.titleInfo {
     color: #6c757d;
+}
+
+.desInfo {
+    color: #02325e;
 }
 
 .blockContent {
@@ -41,6 +49,7 @@
     /*border: 1px solid black;*/
     margin-left: 20px;
     margin-top: 20px;
+
 }
 
 .blockInfo {
@@ -48,13 +57,15 @@
     flex-direction: column;
     margin-left: 30px;
     padding: 5px;
-    margin-top: 50px;
+    min-width: 300px;
+    justify-content: space-around;
+    min-height: 250px;
 }
 
+
 .avatar {
-    width: 200px;
+    width: 250px;
     height: 300px;
-    border: 1px solid black;
     border-radius: 20px;
 
 }
@@ -63,3 +74,33 @@
     display: flex;
 }
 
+.status {
+    margin-top: 5px;
+    font-family: dm sans, sans-serif;
+    color: #02325e;
+}
+
+.editProfile {
+    align-self: flex-end;
+    width: 100px;
+    height: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #0e6dfd;
+    cursor: pointer;
+    border-radius: 12px;
+
+
+}
+
+.editProfile:hover {
+    background-color: #0965ee;;
+}
+
+.linkEdit {
+    color: #fff;
+    font-size: 15px;
+    text-decoration: none;
+
+}

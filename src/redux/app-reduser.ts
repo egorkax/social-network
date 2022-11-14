@@ -27,7 +27,6 @@ export const initializeApp = (): AppThunk => async (dispatch) => {
     let promiseRes = dispatch(authMe())
     Promise.all([promiseRes])
         .then(() => {
-            debugger
             dispatch(setInitialized())
         })
 }

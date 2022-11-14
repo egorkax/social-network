@@ -4,7 +4,7 @@ import './App.css';
 import {Route, Routes} from "react-router-dom";
 import {News} from "./components/News/News";
 import {Music} from "./components/Music/Music";
-import {Setting} from "./components/Setting/Setting";
+import {Settings} from "./components/Setting/Setting";
 import {DialogsContainer} from "./components/Messages/DialogsContainer";
 import {ProfileContainer, withRouter} from "./components/Profile/ProfileContainer";
 import {HeaderContainer} from "./components/Header/HeaderContainer";
@@ -41,7 +41,7 @@ class App extends React.Component<any, any> {
                             <Route path={'/users'} element={<Users/>}/>
                             <Route path={'/news'} element={<News/>}/>
                             <Route path={'/music'} element={<Music/>}/>
-                            <Route path={'/setting'} element={<Setting/>}/>
+                            <Route path={'/setting'} element={<Settings/>}/>
                             <Route path={'/login'} element={<LoginContainer/>}/>
                         </Routes>
                     </div>

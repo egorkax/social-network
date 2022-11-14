@@ -1,4 +1,5 @@
 import React, {ChangeEvent, useEffect, useState} from "react";
+import s from './status.module.css'
 
 export const Status = (props: any) => {
     const [editMode, setEditMode] = useState<boolean>(false)
@@ -21,7 +22,8 @@ export const Status = (props: any) => {
         <>
             {!editMode
                 ? <div>
-                    <span onDoubleClick={() => setEditMode(true)}>{props.status || "No status"}</span>
+                    <span className={s.status}
+                          onDoubleClick={() => setEditMode(true)}>{props.status ? props.status + ' ...✎' : "No status ...✎"}</span>
                 </div>
                 : <div>
                     <input autoFocus={true} onChange={onChangeStatus}

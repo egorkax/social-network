@@ -19,6 +19,7 @@ export const MyPosts = (props: MyPostsPropsType) => {
         props.updateNewPostText(e.currentTarget.value)
     }
     const onAddPost = () => {
+        if(props.newPostText)
         props.addPost()
     }
     return (

@@ -1,21 +1,17 @@
 import React from 'react';
 import s from './authData.module.css'
 import {NavLink} from "react-router-dom";
+import LogOut from "../../../commons/icons/logout.svg";
 
 export const AuthData = (props: any) => {
     return (
-        <>
-            {props.profileData ?
-                <div className={s.blockAuth}>
-                    <img className={s.ava}/>
-                    <span>{props.profileData.login}</span>
-                    <span onClick={props.logOut}>LogOut</span>
-                </div>
-                : <div className={s.blockAuth}>
-                    <NavLink to={'/login'}>LogIn</NavLink>
-                </div>}
-        </>
-
+        <div className={s.blockAuth}>
+            {props.profileData
+                ? <>
+                    <div className={s.logOut} onClick={props.logOut}>LogOut<img src={LogOut}/></div>
+                </>
+                : <NavLink className={s.login} to={'/login'}>LogIn</NavLink>}
+        </div>
     );
 };
 

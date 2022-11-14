@@ -2,13 +2,19 @@ import React, {Component, ComponentType} from "react";
 import {Profile} from "./Profile";
 import {connect} from "react-redux";
 import {AppRootStateType} from "../../redux/store";
-import {getUserProfile, getUserStatus, setUserProfile, updateStatusTC} from "../../redux/profile-reduser";
+import {
+    getUserProfile,
+    getUserStatus,
+    setUserProfile,
+    updatePhotoProfile,
+    updateStatusTC
+} from "../../redux/profile-reduser";
 import {useLocation, useNavigate, useParams,} from "react-router-dom";
 import {compose} from "redux";
 
 class ProfileClassContainer extends React.Component<any, any> {
-    componentDidMount() {
 
+    refreshProfile() {
         let userId = this.props.router.params.userId;
         if (!userId) {
             userId = this.props.myId
@@ -19,10 +25,24 @@ class ProfileClassContainer extends React.Component<any, any> {
         } else this.props.setUserProfile(null)
     }
 
+    componentDidMount() {
+        this.refreshProfile()
+    }
+
+    componentDidUpdate(prevProps: Readonly<any>, prevState: Readonly<any>, snapshot?: any) {
+        if (this.props.router.params.userId !== prevProps.router.params.userId) {
+            this.refreshProfile()
+        }
+
+    }
+
     render() {
         return (
-            <Profile profile={this.props.profile} status={this.props.status}
-                     updateStatus={this.props.updateStatusTC}/>
+            <Profile profile={this.props.profile}
+                     isOwner={!this.props.router.params.userId}
+                     status={this.props.status}
+                     updateStatus={this.props.updateStatusTC}
+                     updatePhotoProfile={this.props.updatePhotoProfile}/>
         )
     }
 }
@@ -54,6 +74,6 @@ let mapStateToProps = (state: AppRootStateType) => {
 }
 
 export const ProfileContainer = compose<ComponentType>(
-    connect(mapStateToProps, {setUserProfile, getUserProfile, getUserStatus, updateStatusTC}),
+    connect(mapStateToProps, {setUserProfile, getUserProfile, getUserStatus, updateStatusTC, updatePhotoProfile}),
     withRouter
 )(ProfileClassContainer)

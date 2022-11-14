@@ -1,0 +1,112 @@
+.blockSettings {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.header {
+
+}
+
+
+.blockTools {
+    border: 2px solid #EDF2F7;
+    padding: 20px;
+}
+
+.changePhoto {
+    display: flex;
+    border: 2px solid #EDF2F7;
+    padding: 20px;
+    align-items: center;
+    justify-content: space-between;
+
+}
+
+.photoLabel {
+    background-color: #eccef1;
+    border-radius: 5px;
+    width: 120px;
+    height: 30px;
+    text-align: center;
+}
+
+.photo {
+    width: 80px;
+}
+
+.inputPhoto {
+    margin-left: 30px;
+}
+
+.blockSet {
+    margin-top: 40px;
+    display: flex;
+    align-items: center;
+}
+
+.set {
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+}
+
+.label {
+    text-align: center;
+    display: inline-block;
+    width: 100px;
+    height: 50px;
+    background-color: #eccef1;
+    border-radius: 5px;
+}
+
+.minLabel {
+    text-align: center;
+    display: inline-block;
+    width: 100px;
+    height: 30px;
+    background-color: #eccef1;
+    border-radius: 5px;
+}
+
+.input {
+    display: inline-block;
+    height: 50px;
+    border: 2px solid #EDF2F7;
+    outline: none;
+}
+
+.minInput {
+    display: inline-block;
+    height: 30px;
+    border: 2px solid #EDF2F7;
+    outline: none;
+}
+
+
+.apply {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 10px;
+    width: 100px;
+    height: 40px;
+    border-radius: 14px;
+    color: #fff;
+    background-color: #0e6dfd;
+    border-color: #0e6dfd;
+    cursor: pointer;
+
+}
+
+.apply:hover {
+    background-color: #0965ee;
+    border-color: #0965ee;
+
+}
+
+.link {
+    text-decoration: none;
+    font-size: 17px;
+    color: white;
+}

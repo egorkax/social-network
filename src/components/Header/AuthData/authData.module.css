@@ -1,16 +1,20 @@
 .blockAuth {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    width: 230px;
-    height: 50px;
-    border: 1px black solid;
 
+    margin-top: 40px;
 }
 
-.ava {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    border: 1px black solid;
+.logOut {
+    display: flex;
+    flex-direction: row;
+    color: #02325e;
+    cursor: pointer;
+}
+.logOut img{
+    display: block;
+    margin-left: 10px;
+}
+.login{
+    color: #02325e;
+    cursor: pointer;
+    text-decoration: none;
 }

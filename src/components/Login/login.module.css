@@ -1,4 +1,4 @@
-.blockLogin{
+.blockLogin {
     width: 413px;
     display: flex;
     flex-direction: column;
@@ -9,4 +9,18 @@
     border-radius: 2px;
     margin: 60px auto 0;
     padding-bottom: 50px;
+}
+
+.blockInfoLogIn {
+    display: flex;
+    width: 250px;
+    flex-direction: column;
+    margin-bottom: 30px;
+    margin-right: 35px;
+    font-family: dm sans, sans-serif;
+    color: #6c757d;
+}
+
+.someInfo {
+    align-self: flex-end;
 }

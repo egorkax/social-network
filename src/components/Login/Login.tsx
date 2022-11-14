@@ -8,10 +8,16 @@ export const Login = (props: any) => {
     return (
         <div className={s.blockLogin}>
             <h1>Sign In</h1>
+            <div className={s.blockInfoLogIn}>
+                You can enter:
+                <div className={s.someInfo}>
+                    <div> Email: free@samuraijs.com</div>
+                    <div> Password: free</div>
+                </div>
+
+            </div>
             <SignInForm logIn={props.logIn}/>
             <div className='add-reg-block'>
-                <p>Already have an account?</p>
-                <NavLink className='underlinedLink' to={'/registration'}>Sign Up</NavLink>
             </div>
         </div>
     );

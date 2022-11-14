@@ -1,6 +1,6 @@
 import {v1} from "uuid";
 import {Dispatch} from "redux";
-import {usersAPI} from "../api/api";
+import {profileAPI, usersAPI} from "../api/api";
 import {AppThunk} from "./store";
 
 let initialState: ProfilePagesTypes = {
@@ -37,6 +37,18 @@ export const profileReducer = (state: ProfilePagesTypes = initialState, action: 
         case "SET-USER-STATUS": {
             return {...state, status: action.status}
         }
+        case "SET-PROFILE-PHOTO": {
+
+            return state.profile ? {
+                    ...state, profile: {
+                        ...state.profile, photos: {
+                            ...state.profile?.photos,
+                            small: action.photo, large: action.photo
+                        }
+                    }
+                }
+                : state
+        }
 
         default:
             return state
@@ -56,6 +68,9 @@ export const setUserProfile = (profile: UserProfileType) => (
 export const setUserStatus = (status: string) => {
     return {type: 'SET-USER-STATUS', status} as const
 }
+export const setProfilePhoto = (photo: string) => {
+    return {type: 'SET-PROFILE-PHOTO', photo} as const
+}
 
 //thunk
 export const getUserProfile = (userId: number): AppThunk => async (dispatch) => {
@@ -73,12 +88,19 @@ export const updateStatusTC = (status: string): AppThunk => async (dispatch) => 
     if (res.data.resultCode === 0)
         dispatch(setUserStatus(status))
 }
+export const updatePhotoProfile = (photoFile: any): AppThunk => async (dispatch) => {
+    let res = await profileAPI.savePhoto(photoFile)
+    if (res.data.resultCode === 0) {
+        dispatch(setProfilePhoto(res.data.data))
+    }
+
+}
 
 //type
 export type ProfilePagesTypes = {
     postData: Array<PostType>
     newPostText: string
-    profile: null | UserProfileType
+    profile: UserProfileType | null
     status: null | string
 
 }
@@ -88,8 +110,6 @@ export type PostType = {
     likes: number
 }
 export type UserProfileType = {
-
-
     "aboutMe": null | string
     "contacts": {
         "facebook": null | string
@@ -115,6 +135,7 @@ export type ProfileActionsType =
     | ReturnType<typeof updateNewPostTextAC>
     | ReturnType<typeof setUserProfile>
     | ReturnType<typeof setUserStatus>
+    | ReturnType<typeof setProfilePhoto>
 
 
 

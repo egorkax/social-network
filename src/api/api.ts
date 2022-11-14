@@ -34,6 +34,18 @@ export const usersAPI = {
     },
 }
 
+export const profileAPI = {
+    savePhoto(photoFile: any) {
+        const formDara = new FormData()
+        formDara.append("image", photoFile)
+        return instance.put(`profile/photo`, formDara, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        })
+    }
+}
+
 export const authAPI = {
     authMe() {
         return instance.get(`auth/me`)

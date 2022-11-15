@@ -125,7 +125,6 @@ export const getUsers = (currentPage: number, pageSize: number): AppThunk => asy
     dispatch(setFetching(false))
     dispatch(setCurrentPage(currentPage))
     dispatch(setPageSizeUsers(pageSize))
-    debugger
     let res = await usersAPI.getUsers(currentPage, pageSize)
     dispatch(setUsers(res.data.items))
     dispatch(setTotalUsersCount(res.data.totalCount))

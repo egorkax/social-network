@@ -2,6 +2,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding-bottom: 30px;
 }
 
 .header {
@@ -85,9 +86,6 @@
 
 
 .apply {
-    display: flex;
-    align-items: center;
-    justify-content: center;
     margin-left: 10px;
     width: 100px;
     height: 40px;
@@ -96,6 +94,7 @@
     background-color: #0e6dfd;
     border-color: #0e6dfd;
     cursor: pointer;
+    margin-top: 20px;
 
 }
 

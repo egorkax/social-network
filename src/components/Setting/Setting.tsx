@@ -1,37 +1,56 @@
-import React, {ChangeEvent, useState} from "react";
-import {useDispatch} from "react-redux";
-import {NavLink} from "react-router-dom";
+import React, {ChangeEvent, useEffect, useState} from "react";
+import {Navigate, NavLink} from "react-router-dom";
 import {useAppDispatch, useAppSelector} from "../../redux/store";
 import s from './Setting.module.css'
-import {updatePhotoProfile} from "../../redux/profile-reduser";
+import {updatePhotoProfile, updateProfile} from "../../redux/profile-reduser";
 
 export const Settings = () => {
+    useEffect(() => {
+
+    }, [])
     const profile = useAppSelector(state => state.profilePage.profile)
     const photo = useAppSelector(state => state.profilePage.profile?.photos.large)
     const authId = useAppSelector(state => state.auth.profileData?.id)
+    const isAuth = useAppSelector(state => state.auth.isAuth)
     const dispatch = useAppDispatch()
     const [fullName, setFullName] = useState(profile ? profile.fullName : '')
     const [aboutMe, setAboutMe] = useState(profile ? profile.aboutMe : '')
-    const [findJob, setFindJob] = useState<boolean | null>(profile ? profile.lookingForAJob : null)
+    const [findJob, setFindJob] = useState<boolean>(profile ? profile.lookingForAJob : false)
     const [descJob, setDescJob] = useState<string | null>(profile ? profile.lookingForAJobDescription : '')
 
 
-    // const changeFullName = () => {
-    //     dispatch(updateName(fullName))
-    // }
-    // const changeAboutMe = () => {
-    //     dispatch(updateAboutMe(aboutMe))
-    // }
-    // const onChangeHandler = (e: any) => {
-    //     if (e.currentTarget.files.length === 1) {
-    //         dispatch(savePhoto(e.currentTarget.files[0]))
-    //     }
-    // }
+    const changeFullName = (e: ChangeEvent<HTMLInputElement>) => {
+        setFullName(e.currentTarget.value)
+    }
+    const changeAboutMe = (e: ChangeEvent<HTMLInputElement>) => {
+        setAboutMe(e.currentTarget.value)
+    }
+    const changeFindJob = (e: ChangeEvent<HTMLInputElement>) => {
+        setFindJob(e.currentTarget.checked)
+    }
+    const changeDescJob = (e: ChangeEvent<HTMLInputElement>) => {
+        setDescJob(e.currentTarget.value)
+    }
+
+
     const chosePhoto = (e: ChangeEvent<HTMLInputElement>) => {
         if (e.target.files) {
             dispatch(updatePhotoProfile(e.target.files[0]))
         }
     }
+    const setProfileData = () => {
+        if (profile) {
+            dispatch(updateProfile({
+                ...profile,
+                fullName: fullName,
+                aboutMe: aboutMe ? aboutMe : '',
+                lookingForAJob: findJob,
+                lookingForAJobDescription: descJob ? descJob : ''
+            }))
+        }
+    }
+
+    if (!isAuth) return <Navigate to={'/login'}/>
     return (
         <>
             <div className={s.blockSettings}>
@@ -49,25 +68,26 @@ export const Settings = () => {
                     </div>
                     <div className={s.blockSet}>
                         <span className={s.minLabel}>Name</span>
-                        <input className={s.minInput} value={fullName} type={"text"}/>
+                        <input className={s.minInput} value={fullName} type={"text"} onChange={changeFullName}/>
                     </div>
                     <div className={s.set}>
                         <span className={s.minLabel}>About Me</span>
-                        <input className={s.minInput} type={"text"} value={aboutMe ? aboutMe : ''}/>
+                        <input className={s.minInput} type={"text"} onChange={changeAboutMe}
+                               value={aboutMe ? aboutMe : ''}/>
                     </div>
                     <div className={s.set}>
                         <span className={s.label}>Looking for a job?</span>
-                        <input type={"checkbox"} checked={findJob ? findJob : false}/>
+                        <input type={"checkbox"} onChange={changeFindJob} checked={findJob ? findJob : false}/>
                     </div>
                     <div className={s.set}>
                         <span className={s.label}>Job description</span>
-                        <input className={s.input} type={"text"} value={descJob ? descJob : ''}/>
+                        <input className={s.input} type={"text"} onChange={changeDescJob}
+                               value={descJob ? descJob : ''}/>
                     </div>
                 </div>
                 <div className={s.blockButton}>
-                    <button className={s.apply}>
-                        <NavLink className={s.link} to={'/profile'}>
-                            Apply</NavLink>
+                    <button onClick={setProfileData} className={s.apply}>
+                        <NavLink className={s.link} to={'/profile'}>Apply</NavLink>
                     </button>
                 </div>
 

@@ -13,6 +13,7 @@ let initialState: ProfilePagesTypes = {
         {id: v1(), message: '12345?', likes: 44}
     ],
     status: '',
+    updatedStatus: false
 
 };
 //reducer
@@ -49,7 +50,9 @@ export const profileReducer = (state: ProfilePagesTypes = initialState, action: 
                 }
                 : state
         }
-
+        case "SET-UPDATE-PROFILE": {
+            return state.profile ? {...state, profile: {...state.profile, ...action.profile}} : state
+        }
         default:
             return state
     }
@@ -71,11 +74,22 @@ export const setUserStatus = (status: string) => {
 export const setProfilePhoto = (photo: string) => {
     return {type: 'SET-PROFILE-PHOTO', photo} as const
 }
+export const setUpdateProfile = (profile: UpdateUserProfileType) => {
+    return {type: 'SET-UPDATE-PROFILE', profile} as const
+}
 
 //thunk
 export const getUserProfile = (userId: number): AppThunk => async (dispatch) => {
     let res = await usersAPI.getUserProfile(userId)
     dispatch(setUserProfile(res.data))
+}
+export const updateProfile = (profile: UpdateUserProfileType): AppThunk => async (dispatch, getState) => {
+    const userId = getState().auth.profileData?.id
+    let res = await profileAPI.updateProfile(profile)
+    if (res.data.resultCode === 0) {
+        getUserProfile(userId ? userId : 0)
+    }
+
 }
 
 export const getUserStatus = (userId: number): AppThunk => async (dispatch) => {
@@ -102,6 +116,7 @@ export type ProfilePagesTypes = {
     newPostText: string
     profile: UserProfileType | null
     status: null | string
+    updatedStatus: boolean
 
 }
 export type PostType = {
@@ -130,12 +145,30 @@ export type UserProfileType = {
         "large": null | string
     }
 }
+export type UpdateUserProfileType = {
+    "aboutMe": null | string
+    "contacts": {
+        "facebook": null | string
+        "website": null | string
+        "vk": null | string
+        "twitter": null | string
+        "instagram": null | string
+        "youtube": null | string
+        "github": null | string
+        "mainLink": null | string
+    },
+    "lookingForAJob": boolean
+    "lookingForAJobDescription": string
+    "fullName": string
+    "userId": number
+}
 export type ProfileActionsType =
     ReturnType<typeof addPostAC>
     | ReturnType<typeof updateNewPostTextAC>
     | ReturnType<typeof setUserProfile>
     | ReturnType<typeof setUserStatus>
     | ReturnType<typeof setProfilePhoto>
+    | ReturnType<typeof setUpdateProfile>
 
 
 

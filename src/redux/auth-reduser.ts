@@ -52,7 +52,7 @@ export type initialStateType = {
     isAuth: boolean
 }
 export type ProfileDataType = {
-    id: number | null
+    id: number
     login: string | null
     email: string | null
 }

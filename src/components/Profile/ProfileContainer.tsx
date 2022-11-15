@@ -33,7 +33,10 @@ class ProfileClassContainer extends React.Component<any, any> {
         if (this.props.router.params.userId !== prevProps.router.params.userId) {
             this.refreshProfile()
         }
-
+        // else if (this.props.profile !== prevProps.profile) {
+        //     this.refreshProfile()
+        //
+        // }
     }
 
     render() {

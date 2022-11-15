@@ -62,7 +62,7 @@ export const ProfileInfo = (props: ProfileInfoPropsType) => {
                             </div>
                             <div className={s.titleInfo}>Looking for a
                                 job:<span
-                                    className={s.desInfo}>{props.profile.lookingForAJob ? props.profile.lookingForAJob : ' No info...'}</span>
+                                    className={s.desInfo}>{props.profile.lookingForAJob ? 'True' : 'False'}</span>
                             </div>
                             <div className={s.titleInfo}>Job description:<span
                                 className={s.desInfo}>{props.profile.lookingForAJobDescription ? props.profile.lookingForAJobDescription : ' No info...'}</span>

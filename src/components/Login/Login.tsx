@@ -35,7 +35,6 @@ export const SignInForm = (props: any) => {
             props.logIn(values.email, values.password, values.rememberMe)
         },
     })
-    console.log('formik:', formik)
     return (
         <form onSubmit={formik.handleSubmit}>
             <div>

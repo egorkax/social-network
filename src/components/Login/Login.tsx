@@ -31,7 +31,6 @@ export const SignInForm = (props: any) => {
             rememberMe: false,
         },
         onSubmit: values => {
-            console.log(values)
             props.logIn(values.email, values.password, values.rememberMe)
         },
     })
